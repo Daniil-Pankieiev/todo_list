@@ -5,7 +5,7 @@ from todo_list.settings import AUTH_USER_MODEL
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     class Meta:
         ordering = ["name"]
@@ -43,16 +43,16 @@ class Task(models.Model):
         choices=STATUS_CHOICES,
         default="In progress",
     )
-    content = models.TextField()
-    deadline = models.DateField(null=True, blank=True)
+    content = models.TextField(blank=True)
+    deadline = models.DateTimeField(null=True, blank=True)
     is_completed = models.BooleanField(default=False)
     priority = models.CharField(
         max_length=10,
         choices=PRIORITY_CHOICES,
         default="LOW",
     )
-    tag = models.ManyToManyField(Tag, related_name="tasks")
-    assignees = models.ManyToManyField(AUTH_USER_MODEL, related_name="tasks")
+    tags = models.ManyToManyField(Tag, related_name="tasks")
+    assignee = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ["deadline"]
