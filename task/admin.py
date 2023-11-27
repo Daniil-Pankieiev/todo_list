@@ -26,7 +26,6 @@ class TaskAdmin(admin.ModelAdmin):
     search_fields = ("name",)
     list_filter = (
         "is_completed",
-        "status",
         "assignee",
         "tags",
         "priority",
@@ -35,7 +34,6 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "is_completed",
-        "status",
         "created_at",
         "content",
         "deadline",
@@ -53,3 +51,7 @@ class TaskAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TaskTypeAdmin(admin.ModelAdmin):
     search_fields = ("name",)
+    list_display = (
+        "name",
+        "owner"
+    )
