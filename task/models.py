@@ -5,7 +5,12 @@ from todo_list.settings import AUTH_USER_MODEL
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=100)
+    owner = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="tags"
+    )
 
     class Meta:
         ordering = ["name"]
@@ -31,18 +36,8 @@ class Task(models.Model):
         ("Medium", "Medium"),
         ("High", "High"),
     )
-    STATUS_CHOICES = (
-        ("In progress", "In progress"),
-        ("Completed on time", "Completed on time"),
-        ("Completed after the deadline", "Completed after the deadline"),
-    )
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(
-        max_length=100,
-        choices=STATUS_CHOICES,
-        default="In progress",
-    )
     content = models.TextField(blank=True)
     deadline = models.DateTimeField(null=True, blank=True)
     is_completed = models.BooleanField(default=False)
@@ -52,10 +47,13 @@ class Task(models.Model):
         default="LOW",
     )
     tags = models.ManyToManyField(Tag, related_name="tasks")
-    assignee = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    assignee = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="tasks")
 
     class Meta:
-        ordering = ["deadline"]
+        ordering = ["is_completed"]
 
     def __str__(self):
         return self.name
