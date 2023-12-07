@@ -16,7 +16,6 @@
   {% if tag_list %}
     <table class="table">
       <tr>
-        <th>ID</th>
         <th>Name</th>
         <th>Update</th>
         <th>Delete</th>
@@ -24,7 +23,6 @@
 
       {% for tag in tag_list %}
         <tr>
-          <td>{{ tag.id }}</td>
           <td>{{ tag.name }}
           </td>
           <td>
