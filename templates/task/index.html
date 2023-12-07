@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>TODO list</h1>
+    <p>Welcome to Best TODO list</p>
+    <h2>Information</h2>
+    <p>The TODO list has the following record counts:</p>
+    <ul>
+        <li><strong>Tags:</strong> {{ num_tags }}</li>
+        <li><strong>Tasks:</strong> {{ num_tasks }}</li>
+    </ul>
+
+    <p>You have visited this page
+        {{ num_visits }} time{{ num_visits|pluralize }}.
+    </p>
+
+{% endblock %}

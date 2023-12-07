@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    User: {{ customuser.username }}
+    <a href="{% url 'task:customuser-delete' pk=customuser.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+    <a href="{% url 'task:customuser-update' pk=customuser.id %}" class="btn btn-secondary link-to-page">
+      Update
+    </a>
+  </h1>
+  {% if customuser.email %}
+    <p><strong>Email:</strong> {{ customuser.email }}</p>
+  {% endif %}
+  {% if customuser.first_name %}
+    <p><strong>First name:</strong> {{ customuser.first_name }}</p>
+  {% endif %}
+  {% if customuser.last_name %}
+    <p><strong>Last name:</strong> {{ customuser.last_name }}</p>
+  {% endif %}
+   <p><strong>Registation date:</strong> {{ customuser.date_joined }}</p>
+
+
+  <div class="ml-3">
+  </div>
+{% endblock %}
